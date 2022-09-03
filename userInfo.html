@@ -1,0 +1,188 @@
+<html>
+    <head>
+        <title>User Info</title>
+
+        <!-- <link rel="stylesheet" media="all" href="https://ev.io/sites/default/files/css/css_7CAbgI9CxDGLvfYjZUGLoguaOSLFdyHXEwlsT1mF30A.css" />
+        <link rel="stylesheet" media="all" href="https://cdn.jsdelivr.net/npm/bootswatch@3.4.0/cyborg/bootstrap.min.css" integrity="sha256-4Aj9PWLM4HvONu6yK2UpBGNotCS8Eeu485IkWwpL2NE=" crossorigin="anonymous" />
+        <link rel="stylesheet" media="all" href="https://cdn.jsdelivr.net/npm/@unicorn-fail/drupal-bootstrap-styles@0.0.2/dist/3.4.0/8.x-3.x/drupal-bootstrap-cyborg.min.css" integrity="sha512-QaVJ89ov/Jn2aHF8FEP8PbtXr2zbchabi6rB/FkNWHXOKMmwI/SeFI4vvuWzM9jUfTIQrJ7X2xN4BIRjsufOdg==" crossorigin="anonymous" />
+        <link rel="stylesheet" media="all" href="https://ev.io//sites/default/files/css/css_AyFVMW4oS1GKMAOylkhTWnnFViQa6hE2nK0vIZM4bTQ.css" /> -->
+    </head>
+    <body>
+        <div id="container" class="main-container container js-quickedit-main-content">
+            <div id="searchInfo">
+                <label for="userIdNumber">User Number</label>
+                <input id="userIdNumber" type="text" value="243942"></input>
+                <button id="getUrlInfo" type="button"">Go</button>
+            </div>
+            <div id="userName"></div>
+            <div id="userData"></div>
+            <div id="userRenting"></div>
+        </div>
+
+        <script>
+            window.onload = function() {
+                var userNumber = document.getElementById('userIdNumber');
+                var yourUserUrl = "";
+                var yourScholarshipURL = "";
+                var json_obj = "";
+                var msgUser = "";
+                var msgData = "";
+                var userNameDiv = document.getElementById('userName');
+                var userDataDiv = document.getElementById('userData');
+                var msgRenting = "";
+                var userRentingDiv = document.getElementById('userRenting');
+
+                geturlInfo();
+                
+                function geturlInfo(){
+                    yourUserUrl = "https://ev.io/user/" + userNumber.value + "?_format=json";
+                    yourScholarshipURL = "https://ev.io/scholar/" + userNumber.value;
+
+                    geturl(yourUserUrl);
+                    getScholarshipUrl(yourScholarshipURL);
+                }
+
+                function geturl(yourUrl){
+                    var Httpreq = new XMLHttpRequest(); // a new request
+                    Httpreq.open("GET",yourUrl,false);
+                    Httpreq.send(null);
+
+                    json_obj = JSON.parse(Httpreq.responseText);
+
+                    msgUser = "";
+
+                    if (Object.keys(json_obj).length > 1) {
+                        changeUserData();
+                    } else {
+                        msgData = "This user does not have any data at this time.";
+
+                        changeUserText();
+                    }
+                }
+
+                function getScholarshipUrl(yourUrl){
+                    var Httpreq = new XMLHttpRequest(); // a new request
+                    Httpreq.open("GET",yourUrl,false);
+                    Httpreq.send(null);
+
+                    json_obj = JSON.parse(Httpreq.responseText);
+
+                    if (json_obj.length > 0) {
+                        changeScholarData();
+                    } else {
+                        msgUser = "";
+                        msgRenting = "This user does not have any scholarships at this time.";
+
+                        changeScholarText();
+                    }
+                }
+
+                function changeUserData() {
+                    var msgUserName, msgWeekScore, msgTotalGames, msgRank, msgScore, msgKills, msgDeaths, msgKD, msgKPG, msgScorePerGame, msgEvCoins, msgCPWeek, msgBRWeek, msgBRTotal, msgSurviveWeek, msgSurviveHigh, msgAcctCreated;
+
+                    msgData = "";
+
+                    if(json_obj.name[0]){
+                        msgUserName = "User Name: " + json_obj.name[0].value + "\n"
+                    }
+
+                    if(json_obj.field_weekly_score[0]){
+                        msgWeekScore = "Weekly Score: " + json_obj.field_weekly_score[0].value + "\n"
+                    }
+                    
+                    if (json_obj.field_total_games[0]) {
+                        msgTotalGames = "Total Games: " + json_obj.field_total_games[0].value + "\n"
+                    }
+
+                    if (json_obj.field_rank[0]) {
+                        msgRank = "Rank: " + json_obj.field_rank[0].value + "\n"
+                    }
+
+                    if (json_obj.field_score[0]) {
+                        msgScore = "Score: " + json_obj.field_score[0].value + "\n"
+                    }
+
+                    if (json_obj.field_kills[0]) {
+                        msgKills = "Kills: " + json_obj.field_kills[0].value + "\n"
+                    }
+                    
+                    if (json_obj.field_deaths[0]) {
+                        msgDeaths = "Deaths: " + json_obj.field_deaths[0].value + "\n"    
+                    }
+                    
+                    if (json_obj.field_k_d[0]) {
+                        msgKD =  "K/D: " + json_obj.field_k_d[0].value + "\n"
+                    }
+
+                    if (json_obj.field_kills && json_obj.field_total_games) {
+                        var KPGScore = Math.round(json_obj.field_kills[0].value/json_obj.field_total_games[0].value);
+                        msgKPG = "KPG: " + KPGScore + "\n"
+                    }
+
+                    if (json_obj.field_score[0] && json_obj.field_total_games[0]) {
+                        var ScorePerGame = Math.round(json_obj.field_score[0].value/json_obj.field_total_games[0].value)
+                        msgScorePerGame = "Score/Game: " + ScorePerGame + "\n"                       
+                    }
+                    
+                    if (json_obj.field_ev_coins[0]) {
+                        msgEvCoins = "ev Coins: " + json_obj.field_ev_coins[0].value + "\n"
+                    }
+                    
+                    if (json_obj.field_cp_earned_weekly[0]) {
+                        msgCPWeek = "CP - Weekly : " + json_obj.field_cp_earned_weekly[0].value + "\n"
+                    }
+
+                    if (json_obj.field_battle_royale_wins_weekly[0]) {
+                        msgBRWeek = "Battle Royale - Weekly: " + json_obj.field_battle_royale_wins_weekly[0].value + "\n" 
+                    }
+                    
+                    if (json_obj.field_battle_royale_wins[0]) {
+                        msgBRTotal = "Battle Royale - Total: " + json_obj.field_battle_royale_wins[0].value + "\n"
+                    }
+                    
+                    if (json_obj.field_survival_weekly[0]) {
+                        msgSurviveWeek = "Survival - Weekly: " + json_obj.field_survival_weekly[0].value + "\n";
+                    }
+                    if (json_obj.field_survival_high_scores[0]) {
+                        msgSurviveHigh = "Survival - Best: " + json_obj.field_survival_high_scores[0].value + "\n";
+                    }
+
+                    if (json_obj.created[0]) {
+                        msgAcctCreated = "Created: " + json_obj.created[0].value + "\n";
+                    }
+                    
+                    msgData = msgUserName + msgWeekScore + msgTotalGames + msgRank + msgScore + msgKills + msgDeaths + msgKD + msgKPG + msgScorePerGame + msgEvCoins + msgCPWeek + msgBRWeek + msgBRTotal + msgSurviveWeek + msgSurviveHigh + msgAcctCreated;
+
+                    changeUserText();
+                }
+
+                function changeUserText() {
+                    userNameDiv.innerText = msgUser;
+                    userDataDiv.innerText = msgData;
+                }
+
+                function changeScholarData() {
+                    msgUser = json_obj[0].field_scholar;
+                    msgRenting = "";
+
+                    json_obj.forEach(item => {
+                        msgRenting = msgRenting + "Renting " + item.title + "(" + item.field_tier + ")" + " from " + item.field_owner_name + " at " + item.field_scholar_earn_percentage + "%\n"
+                    });
+
+                    changeScholarText();
+                }
+
+                function changeScholarText() {
+                    userRentingDiv.innerText = msgRenting;
+                }
+                
+                document.getElementById('getUrlInfo').addEventListener('click', geturlInfo);
+                document.getElementById('userIdNumber').addEventListener('keypress', function(e) {
+                    if (e.key === "Enter") {
+                        geturlInfo();
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>
