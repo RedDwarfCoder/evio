@@ -1,0 +1,17 @@
+body {
+    padding: 3em;
+    width: 89%;
+    margin: 0, auto;
+    font-family: 'finalFrontier';
+    font-size: 24px;
+}
+
+@font-face {
+    font-family: 'finalFrontier';
+    src: 
+        url('../font/final-frontier/finalnew-webfont.woff') format('woff2'),
+        url('../font/final-frontier/finalnew-webfont.woff2') format('woff');
+    font-weight:normal;
+    font-style: normal;
+
+}
