@@ -94,69 +94,76 @@
                     var msgScorePerGame = "";
                     var msgEvCoins = "";
                     var msgCPWeek = "";
+                    var msgCPTotal = "";
                     var msgBRWeek = "";
                     var msgBRTotal = "";
                     var msgSurviveWeek = "";
                     var msgSurviveBest = "";
+                    var msgEarnedAsScholar = "";
+                    var msgEarnedFromScholar = "";
 
                     msgData = "";
 
                     if(json_obj.name.length > 0){
-                        msgUserName = "User Name: " + json_obj.name[0].value + "\n"
+                        msgUserName = "User Name: " + json_obj.name[0].value + " (" + json_obj.uid[0].value +  ")\n";
                     }
 
                     if(json_obj.field_weekly_score.length > 0){
-                        msgWeekScore = "Weekly Score: " + json_obj.field_weekly_score[0].value + "\n"
+                        msgWeekScore = "Weekly Score: " + json_obj.field_weekly_score[0].value + "\n";
                     }
                     
                     if (json_obj.field_total_games.length > 0) {
-                        msgTotalGames = "Total Games: " + json_obj.field_total_games[0].value + "\n"
+                        msgTotalGames = "Total Games: " + json_obj.field_total_games[0].value + "\n";
                     }
 
                     if (json_obj.field_rank.length > 0) {
-                        msgRank = "Rank: " + json_obj.field_rank[0].value + "\n"
+                        msgRank = "Rank: " + json_obj.field_rank[0].value + "\n";
                     }
 
                     if (json_obj.field_score.length > 0) {
-                        msgScore = "Total Score: " + json_obj.field_score[0].value + "\n"
+                        msgScore = "Total Score: " + json_obj.field_score[0].value + "\n";
                     }
 
                     if (json_obj.field_kills.length > 0) {
-                        msgKills = "Kills: " + json_obj.field_kills[0].value + "\n"
+                        msgKills = "Kills: " + json_obj.field_kills[0].value + "\n";
                     }
                     
                     if (json_obj.field_deaths.length > 0) {
-                        msgDeaths = "Deaths: " + json_obj.field_deaths[0].value + "\n"    
+                        msgDeaths = "Deaths: " + json_obj.field_deaths[0].value + "\n";    
                     }
                     
                     if (json_obj.field_k_d.length > 0) {
-                        msgKD =  "K/D: " + json_obj.field_k_d[0].value + "\n"
+                        msgKD =  "K/D: " + json_obj.field_k_d[0].value + "\n";
                     }
 
                     if (json_obj.field_kills && json_obj.field_total_games) {
                         var KPGScore = Math.round(json_obj.field_kills[0].value/json_obj.field_total_games[0].value);
-                        msgKPG = "KPG: " + KPGScore + "\n"
+                        msgKPG = "KPG: " + KPGScore + "\n";
                     }
 
                     if (json_obj.field_score.length > 0 && json_obj.field_total_games.length > 0) {
                         var ScorePerGame = Math.round(json_obj.field_score[0].value/json_obj.field_total_games[0].value)
-                        msgScorePerGame = "Score/Game: " + ScorePerGame + "\n"                       
+                        msgScorePerGame = "Score/Game: " + ScorePerGame + "\n";                       
                     }
                     
                     if (json_obj.field_ev_coins.length > 0) {
-                        msgEvCoins = "ev Coins: " + json_obj.field_ev_coins[0].value + "\n"
+                        msgEvCoins = "ev Coins: " + json_obj.field_ev_coins[0].value + "\n";
                     }
                     
                     if (json_obj.field_cp_earned_weekly.length > 0) {
-                        msgCPWeek = "CP - Weekly : " + json_obj.field_cp_earned_weekly[0].value + "\n"
+                        msgCPWeek = "CP - Weekly: " + json_obj.field_cp_earned_weekly[0].value + "\n";
+                    }
+
+                    if (json_obj. field_lifetime_cp_earned.length > 0) {
+                        msgCPTotal = "CP - Total: " + json_obj.field_lifetime_cp_earned[0].value + "\n";
                     }
 
                     if (json_obj.field_battle_royale_wins_weekly.length > 0) {
-                        msgBRWeek = "Battle Royale - Weekly: " + json_obj.field_battle_royale_wins_weekly[0].value + "\n" 
+                        msgBRWeek = "Battle Royale - Weekly: " + json_obj.field_battle_royale_wins_weekly[0].value + "\n"; 
                     }
                     
                     if (json_obj.field_battle_royale_wins.length > 0) {
-                        msgBRTotal = "Battle Royale - Total: " + json_obj.field_battle_royale_wins[0].value + "\n"
+                        msgBRTotal = "Battle Royale - Total: " + json_obj.field_battle_royale_wins[0].value + "\n";
                     }
 
                     if (json_obj.field_survival_weekly.length > 0) {
@@ -172,8 +179,16 @@
                         createDate = createDate.substring(0,10);
                         msgAcctCreated = "Created: " + createDate + "\n";
                     }
+
+                    if (json_obj.field_earned_as_scholar.length > 0) {
+                        msgEarnedAsScholar = "Earned as Scholar: " + json_obj.field_earned_as_scholar[0].value + "\n";
+                    }
+
+                    if (json_obj.field_earned_from_scholars.length > 0) {
+                        msgEarnedFromScholar = "Earned from Scholar: " + json_obj.field_earned_from_scholars[0].value + "\n";
+                    }
                     
-                    msgData = msgUserName + msgAcctCreated + msgRank + msgScore + msgTotalGames + msgWeekScore + msgKills + msgDeaths + msgKD + msgKPG + msgScorePerGame + msgEvCoins + msgCPWeek + msgBRWeek + msgBRTotal + msgSurviveWeek + msgSurviveBest;
+                    msgData = msgUserName + msgAcctCreated + msgRank + msgScore + msgTotalGames + msgWeekScore + msgKills + msgDeaths + msgKD + msgKPG + msgScorePerGame + msgEvCoins + msgEarnedAsScholar + msgEarnedFromScholar + msgCPWeek + msgCPTotal + msgBRWeek + msgBRTotal + msgSurviveWeek + msgSurviveBest;
 
                     changeUserText();
                 }
