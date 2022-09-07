@@ -82,39 +82,54 @@
                 }
 
                 function changeUserData() {
-                    var msgUserName, msgWeekScore, msgTotalGames, msgRank, msgScore, msgKills, msgDeaths, msgKD, msgKPG, msgScorePerGame, msgEvCoins, msgCPWeek, msgBRWeek, msgBRTotal, msgSurviveWeek, msgSurviveHigh, msgAcctCreated;
+                    var msgUserName = "";
+                    var msgWeekScore = "";
+                    var msgTotalGames = "";
+                    var msgRank = "";
+                    var msgScore = "";
+                    var msgKills = "";
+                    var msgDeaths = "";
+                    var msgKD = "";
+                    var msgKPG = "";
+                    var msgScorePerGame = "";
+                    var msgEvCoins = "";
+                    var msgCPWeek = "";
+                    var msgBRWeek = "";
+                    var msgBRTotal = "";
+                    var msgSurviveWeek = "";
+                    var msgSurviveBest = "";
 
                     msgData = "";
 
-                    if(json_obj.name[0]){
+                    if(json_obj.name.length > 0){
                         msgUserName = "User Name: " + json_obj.name[0].value + "\n"
                     }
 
-                    if(json_obj.field_weekly_score[0]){
+                    if(json_obj.field_weekly_score.length > 0){
                         msgWeekScore = "Weekly Score: " + json_obj.field_weekly_score[0].value + "\n"
                     }
                     
-                    if (json_obj.field_total_games[0]) {
+                    if (json_obj.field_total_games.length > 0) {
                         msgTotalGames = "Total Games: " + json_obj.field_total_games[0].value + "\n"
                     }
 
-                    if (json_obj.field_rank[0]) {
+                    if (json_obj.field_rank.length > 0) {
                         msgRank = "Rank: " + json_obj.field_rank[0].value + "\n"
                     }
 
-                    if (json_obj.field_score[0]) {
-                        msgScore = "Score: " + json_obj.field_score[0].value + "\n"
+                    if (json_obj.field_score.length > 0) {
+                        msgScore = "Total Score: " + json_obj.field_score[0].value + "\n"
                     }
 
-                    if (json_obj.field_kills[0]) {
+                    if (json_obj.field_kills.length > 0) {
                         msgKills = "Kills: " + json_obj.field_kills[0].value + "\n"
                     }
                     
-                    if (json_obj.field_deaths[0]) {
+                    if (json_obj.field_deaths.length > 0) {
                         msgDeaths = "Deaths: " + json_obj.field_deaths[0].value + "\n"    
                     }
                     
-                    if (json_obj.field_k_d[0]) {
+                    if (json_obj.field_k_d.length > 0) {
                         msgKD =  "K/D: " + json_obj.field_k_d[0].value + "\n"
                     }
 
@@ -123,39 +138,42 @@
                         msgKPG = "KPG: " + KPGScore + "\n"
                     }
 
-                    if (json_obj.field_score[0] && json_obj.field_total_games[0]) {
+                    if (json_obj.field_score.length > 0 && json_obj.field_total_games.length > 0) {
                         var ScorePerGame = Math.round(json_obj.field_score[0].value/json_obj.field_total_games[0].value)
                         msgScorePerGame = "Score/Game: " + ScorePerGame + "\n"                       
                     }
                     
-                    if (json_obj.field_ev_coins[0]) {
+                    if (json_obj.field_ev_coins.length > 0) {
                         msgEvCoins = "ev Coins: " + json_obj.field_ev_coins[0].value + "\n"
                     }
                     
-                    if (json_obj.field_cp_earned_weekly[0]) {
+                    if (json_obj.field_cp_earned_weekly.length > 0) {
                         msgCPWeek = "CP - Weekly : " + json_obj.field_cp_earned_weekly[0].value + "\n"
                     }
 
-                    if (json_obj.field_battle_royale_wins_weekly[0]) {
+                    if (json_obj.field_battle_royale_wins_weekly.length > 0) {
                         msgBRWeek = "Battle Royale - Weekly: " + json_obj.field_battle_royale_wins_weekly[0].value + "\n" 
                     }
                     
-                    if (json_obj.field_battle_royale_wins[0]) {
+                    if (json_obj.field_battle_royale_wins.length > 0) {
                         msgBRTotal = "Battle Royale - Total: " + json_obj.field_battle_royale_wins[0].value + "\n"
                     }
-                    
-                    if (json_obj.field_survival_weekly[0]) {
+
+                    if (json_obj.field_survival_weekly.length > 0) {
                         msgSurviveWeek = "Survival - Weekly: " + json_obj.field_survival_weekly[0].value + "\n";
                     }
-                    if (json_obj.field_survival_high_scores[0]) {
-                        msgSurviveHigh = "Survival - Best: " + json_obj.field_survival_high_scores[0].value + "\n";
+                    if (json_obj.field_best_survival_time.length > 0) {
+                        msgSurviveBest = "Survival - Best: " + json_obj.field_best_survival_time[0].value + "\n";
                     }
 
-                    if (json_obj.created[0]) {
-                        msgAcctCreated = "Created: " + json_obj.created[0].value + "\n";
+                    if (json_obj.created.length > 0) {
+                        var createDate = json_obj.created[0].value;
+
+                        createDate = createDate.substring(0,10);
+                        msgAcctCreated = "Created: " + createDate + "\n";
                     }
                     
-                    msgData = msgUserName + msgWeekScore + msgTotalGames + msgRank + msgScore + msgKills + msgDeaths + msgKD + msgKPG + msgScorePerGame + msgEvCoins + msgCPWeek + msgBRWeek + msgBRTotal + msgSurviveWeek + msgSurviveHigh + msgAcctCreated;
+                    msgData = msgUserName + msgAcctCreated + msgRank + msgScore + msgTotalGames + msgWeekScore + msgKills + msgDeaths + msgKD + msgKPG + msgScorePerGame + msgEvCoins + msgCPWeek + msgBRWeek + msgBRTotal + msgSurviveWeek + msgSurviveBest;
 
                     changeUserText();
                 }
