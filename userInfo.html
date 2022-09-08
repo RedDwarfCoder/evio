@@ -101,6 +101,7 @@
                     var msgSurviveBest = "";
                     var msgEarnedAsScholar = "";
                     var msgEarnedFromScholar = "";
+                    var msgChanged = "";
 
                     msgData = "";
 
@@ -180,6 +181,13 @@
                         msgAcctCreated = "Created: " + createDate + "\n";
                     }
 
+                    if (json_obj.changed.length > 0) {
+                        var changedDate = json_obj.changed[0].value;
+
+                        changedDate = changedDate.substring(0,10);
+                        msgChanged = "Changed: " + changedDate + "\n";
+                    }
+
                     if (json_obj.field_earned_as_scholar.length > 0) {
                         msgEarnedAsScholar = "Earned as Scholar: " + json_obj.field_earned_as_scholar[0].value + "\n";
                     }
@@ -188,7 +196,7 @@
                         msgEarnedFromScholar = "Earned from Scholar: " + json_obj.field_earned_from_scholars[0].value + "\n";
                     }
                     
-                    msgData = msgUserName + msgAcctCreated + msgRank + msgScore + msgTotalGames + msgWeekScore + msgKills + msgDeaths + msgKD + msgKPG + msgScorePerGame + msgEvCoins + msgEarnedAsScholar + msgEarnedFromScholar + msgCPWeek + msgCPTotal + msgBRWeek + msgBRTotal + msgSurviveWeek + msgSurviveBest;
+                    msgData = msgUserName + msgAcctCreated + msgChanged + msgRank + msgScore + msgTotalGames + msgWeekScore + msgKills + msgDeaths + msgKD + msgKPG + msgScorePerGame + msgEvCoins + msgEarnedAsScholar + msgEarnedFromScholar + msgCPWeek + msgCPTotal + msgBRWeek + msgBRTotal + msgSurviveWeek + msgSurviveBest;
 
                     changeUserText();
                 }
