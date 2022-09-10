@@ -1,23 +1,77 @@
-body {
-    background-color: #303030;
-    color: #FFFFF1;
-    font-family: 'finalFrontier';
-    font-size: 24px;
-    margin: 0, auto;
-    padding: 3em;
-    width: 89%;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body{
+    background:rgb(27, 27, 27);
+    color: white;
+    font-family: Roboto;
+    font-weight: 300;
 }
 
-@font-face {
-    font-family: 'finalFrontier';
-    src: 
-        url('../font/final-frontier/finalnew-webfont.woff') format('woff2'),
-        url('../font/final-frontier/finalnew-webfont.woff2') format('woff');
-    font-weight:normal;
-    font-style: normal;
-
+#searchInfo{
+    margin-left: 35px;
+    margin-top: 35px;
 }
 
-div {
-    margin-bottom: 1em;
+#userData{
+    margin-left: 35px;
+    margin-top: 20px;
+}
+
+
+#userRenting{
+    margin-left: 35px;
+    margin-top: 20px;
+}
+
+#searchInfo label{
+    font-weight: 500;
+}
+
+#userIdNumber{
+    padding: 10px 40px 10px 10px;
+    border-radius: 7px;
+    margin-left: 7px;
+    border: 1px solid rgb(0, 204, 255);
+    background: rgb(255, 255, 255,0);
+    color:white;
+    transition: all .5s ease;
+}
+#userIdNumber:hover{
+    border: 1px solid #fff;
+}
+
+
+#getUrlInfo{
+ padding: 10px 20px 10px 20px;
+ border-radius: 7px;
+ border: 1px solid rgb(0, 204, 255);
+ background: rgb(255, 255, 255,0);
+ transition: all .5s ease;
+ margin-left: 7px;
+ color: white;
+ font-weight: 500;
+}
+
+#getUrlInfo:hover{
+ border: 1px solid rgb(0, 204, 255);
+ background:rgb(0, 204, 255);
+   }
+
+
+
+
+   
+/* this class could be added to userdata & renterdata after the update of the data so that it smoothly fades in */
+
+.fadeIn{
+    animation: fadeIn .5s ease;
+}
+
+@keyframes fadeIn{
+    0%{
+        opacity: 0%;
+    }
+    100%{
+        opacity: 100%;
+    }
 }
