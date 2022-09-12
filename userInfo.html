@@ -102,6 +102,11 @@
                     var msgEarnedAsScholar = "";
                     var msgEarnedFromScholar = "";
                     var msgChanged = "";
+                    var skinNodes = [];
+                    var skinData = "";
+                    var msgCharSkin = "";
+                    var msgSwordSkin = "";
+                    var msgARSkin = "";
 
                     msgData = "";
 
@@ -195,7 +200,11 @@
                     if (json_obj.field_earned_from_scholars.length > 0) {
                         msgEarnedFromScholar = "Earned from Scholar: " + json_obj.field_earned_from_scholars[0].value + "\n";
                     }
-                    
+
+                    skinNodes.push(json_obj.field_sword_skin[0].target_id, json_obj.field_auto_rifle_skin[0].target_id, json_obj.field_eq_skin[0].target_id) ;
+
+                    // skinData = skinNodes.forEach(getSkinData);
+
                     msgData = msgUserName + msgAcctCreated + msgChanged + msgRank + msgScore + msgTotalGames + msgWeekScore + msgKills + msgDeaths + msgKD + msgKPG + msgScorePerGame + msgEvCoins + msgEarnedAsScholar + msgEarnedFromScholar + msgCPWeek + msgCPTotal + msgBRWeek + msgBRTotal + msgSurviveWeek + msgSurviveBest;
 
                     changeUserText();
@@ -205,6 +214,28 @@
                     userNameDiv.innerText = msgUser;
                     userDataDiv.innerText = msgData;
                 }
+
+//                 function getSkinData(value) {
+// console.log("skin");
+// console.log(value);
+// //                     var returnNodes = [];
+
+//                     var Httpreq = new XMLHttpRequest(); // a new request
+//                     // var skinUrl = "https://ev.io/node/" + value + "?_format=json";
+//                     var skinUrl = "https://ev.io/node/529?_format=json";
+// console.log(skinUrl);
+// console.log("var Httpreq = new XMLHttpRequest()");
+// console.log("var skinUrl = 'https://ev.io/node/529?_format=json'");
+// console.log('Httpreq.open("GET",skinUrl,false)');
+//                     Httpreq.open("GET",skinUrl,false);
+//                     // Httpreq.send(null);
+// console.log(JSON);
+//                     // var skinJson = JSON.parse(Httpreq.responseText);
+// // console.log("skin");
+// // console.log(json_obj.title.value);
+//                     // return json_obj;
+                    
+//                 }
 
                 function changeScholarData() {
                     msgUser = json_obj[0].field_scholar;
