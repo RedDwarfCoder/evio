@@ -8,22 +8,6 @@ body{
     font-size: larger;
 }
 
-#searchInfo{
-    margin-left: 35px;
-    margin-top: 35px;
-}
-
-#userData{
-    margin-left: 35px;
-    margin-top: 20px;
-}
-
-
-#userRenting{
-    margin-left: 35px;
-    margin-top: 20px;
-}
-
 #searchInfo label{
     font-weight: 500;
 }
@@ -56,12 +40,13 @@ body{
 #getUrlInfo:hover{
  border: 1px solid rgb(0, 204, 255);
  background:rgb(0, 204, 255);
-   }
+}
 
+.ml35mt20 {
+    margin-left: 35px;
+    margin-top: 20px;
+}
 
-
-
-   
 /* this class could be added to userdata & renterdata after the update of the data so that it smoothly fades in */
 
 .fadeIn{

@@ -13,14 +13,15 @@
     </head>
     <body>
         <div id="container" class="main-container container js-quickedit-main-content">
-            <div id="searchInfo">
+            <div id="searchInfo" class="ml35mt20">
                 <label for="userIdNumber">User Number</label>
                 <input id="userIdNumber" type="text" value="1"></input>
                 <button id="getUrlInfo" type="button"">Go</button>
             </div>
-            <div id="userName"></div>
-            <div id="userData"></div>
-            <div id="userRenting"></div>
+            <div id="userName" class="ml35mt20"></div>
+            <div id="userData" class="ml35mt20"></div>
+            <div id="userRenting" class="ml35mt20"></div>
+            <div id="lastEquipped" class="ml35mt20"></div>
         </div>
 
         <script>
@@ -33,8 +34,10 @@
                 var msgData = "";
                 var userNameDiv = document.getElementById('userName');
                 var userDataDiv = document.getElementById('userData');
+                var userEquipDiv = document.getElementById('lastEquipped');
                 var msgRenting = "";
                 var userRentingDiv = document.getElementById('userRenting');
+                var skinTitle = [];
 
                 geturlInfo();
                 
@@ -103,7 +106,6 @@
                     var msgEarnedFromScholar = "";
                     var msgChanged = "";
                     var skinNodes = [];
-                    var skinData = "";
                     var msgCharSkin = "";
                     var msgSwordSkin = "";
                     var msgARSkin = "";
@@ -201,13 +203,49 @@
                         msgEarnedFromScholar = "Earned from Scholar: " + json_obj.field_earned_from_scholars[0].value + "\n";
                     }
 
-                    // skinNodes.push(json_obj.field_sword_skin[0].target_id, json_obj.field_auto_rifle_skin[0].target_id, json_obj.field_eq_skin[0].target_id) ;
+                    // Get the data of last equipped skins
+                    if(json_obj.field_eq_skin.length > 0) {
+                        skinNodes.push(json_obj.field_eq_skin[0].target_id);
+                    } else {
+                        skinNodes.push(84);
+                    }
 
-                    // skinData = skinNodes.forEach(getSkinData);
+                    if(json_obj.field_auto_rifle_skin.length > 0) {
+                        skinNodes.push(json_obj.field_auto_rifle_skin[0].target_id);
+                    } else {
+                        skinNodes.push(4);
+                    }
+
+                    if(json_obj.field_sword_skin.length > 0) {
+                        skinNodes.push(json_obj.field_sword_skin[0].target_id);
+                    } else {
+                        skinNodes.push(262);
+                    }
+
+                    if(json_obj.field_burst_rifle_skin.length > 0){
+                        skinNodes.push(json_obj.field_burst_rifle_skin[0].target_id);
+                    } else {
+                        skinNodes.push(336);
+                    }
+
+                    if(json_obj.field_hand_cannon_skin.length > 0) {
+                        skinNodes.push(json_obj.field_hand_cannon_skin[0].target_id);
+                    } else {
+                        skinNodes.push (5);
+                    }
+
+                    if(json_obj.field_laser_rifle_skin.length > 0) {
+                        skinNodes.push(json_obj.field_laser_rifle_skin[0].target_id);
+                    } else {
+                        skinNodes.push(9);
+                    }
+
+                    skinNodes.forEach(getSkinData);
 
                     msgData = msgUserName + msgAcctCreated + msgChanged + msgRank + msgScore + msgTotalGames + msgWeekScore + msgKills + msgDeaths + msgKD + msgKPG + msgScorePerGame + msgEvCoins + msgEarnedAsScholar + msgEarnedFromScholar + msgCPWeek + msgCPTotal + msgBRWeek + msgBRTotal + msgSurviveWeek + msgSurviveBest;
 
                     changeUserText();
+                    changeLastEquipText(skinTitle);
                 }
 
                 function changeUserText() {
@@ -215,27 +253,17 @@
                     userDataDiv.innerText = msgData;
                 }
 
-//                 function getSkinData(value) {
-// console.log("skin");
-// console.log(value);
-// //                     var returnNodes = [];
+                function getSkinData(value, index) {
+                    var Httpreq = new XMLHttpRequest(); // a new request
+                    var skinUrl = "https://ev.io/node/" + value + "?_format=json";
 
-//                     var Httpreq = new XMLHttpRequest(); // a new request
-//                     // var skinUrl = "https://ev.io/node/" + value + "?_format=json";
-//                     var skinUrl = "https://ev.io/node/529?_format=json";
-// console.log(skinUrl);
-// console.log("var Httpreq = new XMLHttpRequest()");
-// console.log("var skinUrl = 'https://ev.io/node/529?_format=json'");
-// console.log('Httpreq.open("GET",skinUrl,false)');
-//                     Httpreq.open("GET",skinUrl,false);
-//                     // Httpreq.send(null);
-// console.log(JSON);
-//                     // var skinJson = JSON.parse(Httpreq.responseText);
-// // console.log("skin");
-// // console.log(json_obj.title.value);
-//                     // return json_obj;
-                    
-//                 }
+                    Httpreq.open("GET",skinUrl,false);
+                    Httpreq.send(null);
+
+                    var skinObj = JSON.parse(Httpreq.responseText);
+
+                    skinTitle[index] = skinObj.title[0].value
+                }
 
                 function changeScholarData() {
                     msgUser = json_obj[0].field_scholar;
@@ -250,6 +278,21 @@
 
                 function changeScholarText() {
                     userRentingDiv.innerText = msgRenting;
+                }
+
+                function changeLastEquipText(skinsEquipped) {
+                    // Character,AR,SW,BR,HC,LR
+                    var msgEquipped = "";
+
+                    msgEquipped = "Equipped Skins\n" +
+                    "Character: " + skinsEquipped[0] + "\n" +
+                    "Auto Rifle: " + skinsEquipped[1] + "\n" +
+                    "Sword: " + skinsEquipped[2] + "\n" +
+                    "Burst Rifle: " + skinsEquipped[3] + "\n" +
+                    "Hand Cannon: " + skinsEquipped[4] + "\n" +
+                    "Laser Rifle: " + skinsEquipped[1] + "\n";
+
+                    userEquipDiv.innerText = msgEquipped;
                 }
                 
                 document.getElementById('getUrlInfo').addEventListener('click', geturlInfo);
