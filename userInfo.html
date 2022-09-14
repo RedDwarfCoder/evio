@@ -45,6 +45,10 @@
         yourUserUrl = "https://ev.io/user/" + userNumber.value + "?_format=json";
         yourScholarshipURL = "https://ev.io/scholar/" + userNumber.value;
 
+        userNameDiv.innerText = "";
+        userDataDiv.innerText = "";
+        userEquipDiv.innerText = "";
+
         geturl(yourUserUrl);
         getScholarshipUrl(yourScholarshipURL);
     }
