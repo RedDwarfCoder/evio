@@ -47,6 +47,24 @@ body{
     margin-top: 20px;
 }
 
+.table {
+    display: table;
+}
+
+.row {
+    display: table-row;
+}
+
+.row span {
+    display: table-cell;
+    padding-right: 10px;
+    padding-top: 4px;
+}
+
+.row span:first-child {
+    text-align: right;
+}
+
 /* this class could be added to userdata & renterdata after the update of the data so that it smoothly fades in */
 
 .fadeIn{
