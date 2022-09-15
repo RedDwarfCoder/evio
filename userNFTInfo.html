@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>User NFT Info</title>
+
+        <!-- These are the css files ev.io uses -->
+        <!-- ************** -->
+        <!--
+        <link rel="stylesheet" media="all" href="https://ev.io/sites/default/files/css/css_7CAbgI9CxDGLvfYjZUGLoguaOSLFdyHXEwlsT1mF30A.css" />
+        <link rel="stylesheet" media="all" href="https://cdn.jsdelivr.net/npm/bootswatch@3.4.0/cyborg/bootstrap.min.css" integrity="sha256-4Aj9PWLM4HvONu6yK2UpBGNotCS8Eeu485IkWwpL2NE=" crossorigin="anonymous" />
+        <link rel="stylesheet" media="all" href="https://cdn.jsdelivr.net/npm/@unicorn-fail/drupal-bootstrap-styles@0.0.2/dist/3.4.0/8.x-3.x/drupal-bootstrap-cyborg.min.css" integrity="sha512-QaVJ89ov/Jn2aHF8FEP8PbtXr2zbchabi6rB/FkNWHXOKMmwI/SeFI4vvuWzM9jUfTIQrJ7X2xN4BIRjsufOdg==" crossorigin="anonymous" />
+        <link rel="stylesheet" media="all" href="https://ev.io//sites/default/files/css/css_AyFVMW4oS1GKMAOylkhTWnnFViQa6hE2nK0vIZM4bTQ.css" />
+        -->
+        <!-- ************** -->
+        <link rel="stylesheet" media="all" href="css/main.css" />
+        <script src="js/userNFTInfo.js"></script>
+    </head>
+    <body>
+        <div id="container" class="main-container container js-quickedit-main-content">
+            <div id="searchInfo" class="ml35mt20">
+                <label for="userIdNumber">User Number</label>
+                <input id="userIdNumber" type="text" value="1"></input>
+                <button id="getUrlInfo" type="button"">Go</button>
+            </div>
+            <div class="ml35mt20">
+                <span>User Name:</span>
+                <span id="userName"></span>
+            </div>
+            <div class="ml35mt20">
+                <div class="table">
+                    <div class="row">
+                        <span>NFTs:</span>
+                        <span id="nfts"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <span id="nftsOwned"></span>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
