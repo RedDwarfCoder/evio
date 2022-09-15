@@ -108,7 +108,35 @@
                 </div>
             </div>
             <div id="userRenting" class="ml35mt20"></div>
-            <div id="lastEquipped" class="ml35mt20"></div>
+            <div class="ml35mt20">
+                <div>Equiped Skins</div>
+                <div class="table">
+                    <div class="row">
+                        <span>Character:</span>
+                        <span id="characterSkinTxt"></span>
+                    </div>
+                    <div class="row">
+                        <span>Auto Rifle:</span>
+                        <span id="autoRifleSkinTxt"></span>
+                    </div>
+                    <div class="row">
+                        <span>Sword:</span>
+                        <span id="swordSkinTxt"></span>
+                    </div>
+                    <div class="row">
+                        <span>Burst Rifle:</span>
+                        <span id="burstRifleSkinTxt"></span>
+                    </div>
+                    <div class="row">
+                        <span>Hand Cannon:</span>
+                        <span id="handCannonSkinTxt"></span>
+                    </div>
+                    <div class="row">
+                        <span>Laser Rifle:</span>
+                        <span id="laserRifleSkinTxt"></span>
+                    </div>
+                </div>
+            </div>
         </div>
         <script>
             window.onload = function() {
@@ -162,6 +190,12 @@
                 var brTotalTxt = document.getElementById("brTotalTxt");
                 var survivalWeekTxt = document.getElementById("survivalWeekTxt");
                 var survivalBestTxt = document.getElementById("survivalBestTxt");
+                var characterSkinTxt = document.getElementById("characterSkinTxt");
+                var autoRifleSkinTxt = document.getElementById("autoRifleSkinTxt");
+                var swordSkinTxt = document.getElementById("swordSkinTxt");
+                var burstRifleSkinTxt = document.getElementById("burstRifleSkinTxt");
+                var handCannonSkinTxt = document.getElementById("handCannonSkinTxt");
+                var laserRifleSkinTxt = document.getElementById("laserRifleSkinTxt");
                 var msgRenting = "";
                 var skinTitle = [];
                 var validUser = false;
@@ -171,7 +205,6 @@
                 function geturlInfo(){
                     userNameTxt.innerText = "";
                     userRentingDiv.innerText = "";
-                    userEquipDiv.innerText = "";
                     msgUserName = "";
                     msgWeekScore = "";
                     msgTotalGames = "";
@@ -193,9 +226,13 @@
                     msgEarnedFromScholar = "";
                     msgAcctCreated = "";
                     msgChanged = "";
-
-
+                    skinTitle = ["","","","","",""];
                     validUser = false;
+
+                    if (userNumber.value == null || userNumber.value == "") {
+                        userNumber.value = 0;
+                        userNumber.innerText = 0;
+                    }
 
                     yourUserUrl = "https://ev.io/user/" + userNumber.value + "?_format=json";
                     yourScholarshipURL = "https://ev.io/scholar/" + userNumber.value;
@@ -225,6 +262,7 @@
                         msgData = "This user does not have any data at this time.";
 
                         changeUserText();
+                        changeLastEquipText(skinTitle);
                     }
                 }
 
@@ -384,7 +422,7 @@
 
                     skinNodes.forEach(getSkinData);
 
-                    msgData = msgAcctCreated + msgChanged + msgRank + msgScore + msgTotalGames + msgWeekScore + msgKills + msgDeaths + msgKD + msgKPG + msgScorePerGame + msgEvCoins + msgEarnedAsScholar + msgEarnedFromScholar + msgCPWeek + msgCPTotal + msgBRWeek + msgBRTotal + msgSurviveWeek + msgSurviveBest;
+                    // msgData = msgAcctCreated + msgChanged + msgRank + msgScore + msgTotalGames + msgWeekScore + msgKills + msgDeaths + msgKD + msgKPG + msgScorePerGame + msgEvCoins + msgEarnedAsScholar + msgEarnedFromScholar + msgCPWeek + msgCPTotal + msgBRWeek + msgBRTotal + msgSurviveWeek + msgSurviveBest;
 
                     changeUserText();
                     changeLastEquipText(skinTitle);
@@ -442,18 +480,13 @@
                 }
 
                 function changeLastEquipText(skinsEquipped) {
-                    // Character,AR,SW,BR,HC,LR
-                    var msgEquipped = "";
+                    characterSkinTxt.innerText = skinsEquipped[0];
+                    autoRifleSkinTxt.innerText =  skinsEquipped[1];
+                    swordSkinTxt.innerText =  skinsEquipped[2];
+                    burstRifleSkinTxt.innerText =  skinsEquipped[3];
+                    handCannonSkinTxt.innerText =  skinsEquipped[4];
+                    laserRifleSkinTxt.innerText =  skinsEquipped[5];
 
-                    msgEquipped = "Equipped Skins\n" +
-                    "Character: " + skinsEquipped[0] + "\n" +
-                    "Auto Rifle: " + skinsEquipped[1] + "\n" +
-                    "Sword: " + skinsEquipped[2] + "\n" +
-                    "Burst Rifle: " + skinsEquipped[3] + "\n" +
-                    "Hand Cannon: " + skinsEquipped[4] + "\n" +
-                    "Laser Rifle: " + skinsEquipped[5] + "\n";
-
-                    userEquipDiv.innerText = msgEquipped;
                 }
 
                 document.getElementById('getUrlInfo').addEventListener('click', geturlInfo);
