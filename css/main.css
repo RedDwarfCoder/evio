@@ -56,13 +56,15 @@ body{
 }
 
 .row span {
+    border-bottom: 1px solid #434343;
     display: table-cell;
     padding-right: 10px;
     padding-top: 4px;
+    text-align: right;
 }
 
 .row span:first-child {
-    text-align: right;
+    text-align: left;
 }
 
 /* this class could be added to userdata & renterdata after the update of the data so that it smoothly fades in */
