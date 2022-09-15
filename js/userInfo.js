@@ -3,23 +3,104 @@ window.onload = function() {
     var yourUserUrl = "";
     var yourScholarshipURL = "";
     var json_obj = "";
+    var msgUserName = "";
+    var msgWeekScore = "";
+    var msgTotalGames = "";
+    var msgRank = "";
+    var msgScore = "";
+    var msgKills = "";
+    var msgDeaths = "";
+    var msgKD = "";
+    var msgKPG = "";
+    var msgScorePerGame = "";
+    var msgEvCoins = "";
+    var msgCPWeek = "";
+    var msgCPTotal = "";
+    var msgBRWeek = "";
+    var msgBRTotal = "";
+    var msgSurviveWeek = "";
+    var msgSurviveBest = "";
+    var msgEarnedAsScholar = "";
+    var msgEarnedFromScholar = "";
+    var msgAcctCreated = "";
+    var msgChanged = "";
     var msgUser = "";
     var msgData = "";
-    var userNameDiv = document.getElementById('userName');
-    var userDataDiv = document.getElementById('userData');
+    var userNameTxt = document.getElementById('userName');
     var userEquipDiv = document.getElementById('lastEquipped');
-    var msgRenting = "";
     var userRentingDiv = document.getElementById('userRenting');
+    var createdTxt = document.getElementById("createdTxt");
+    var changedTxt = document.getElementById("changedTxt");
+    var rankTxt = document.getElementById("rankTxt");
+    var totalScoreTxt = document.getElementById("totalScoreTxt");
+    var totalGamesTxt = document.getElementById("totalGamesTxt");
+    var weeklyScoreTxt = document.getElementById("weeklyScoreTxt");
+    var killsTxt = document.getElementById("killsTxt");
+    var deathsTxt = document.getElementById("deathsTxt");
+    var kdRatioTxt = document.getElementById("kdRatioTxt");
+    var kpgTxt = document.getElementById("kpgTxt");
+    var scorePerGameTxt = document.getElementById("scorePerGameTxt");
+    var evCoinsTxt = document.getElementById("evCoinsTxt");
+    var earnedAsScholarTxt = document.getElementById("earnedAsScholarTxt");
+    var earnedFromScholarTxt = document.getElementById("earnedFromScholarTxt");
+    var cpWeekTxt = document.getElementById("cpWeekTxt");
+    var cpTotalTxt = document.getElementById("cpTotalTxt");
+    var brWeekTxt = document.getElementById("brWeekTxt");
+    var brTotalTxt = document.getElementById("brTotalTxt");
+    var survivalWeekTxt = document.getElementById("survivalWeekTxt");
+    var survivalBestTxt = document.getElementById("survivalBestTxt");
+    var characterSkinTxt = document.getElementById("characterSkinTxt");
+    var autoRifleSkinTxt = document.getElementById("autoRifleSkinTxt");
+    var swordSkinTxt = document.getElementById("swordSkinTxt");
+    var burstRifleSkinTxt = document.getElementById("burstRifleSkinTxt");
+    var handCannonSkinTxt = document.getElementById("handCannonSkinTxt");
+    var laserRifleSkinTxt = document.getElementById("laserRifleSkinTxt");
+    var msgRenting = "";
     var skinTitle = [];
+    var validUser = false;
 
     geturlInfo();
-    
+
     function geturlInfo(){
+        userNameTxt.innerText = "";
+        userRentingDiv.innerText = "";
+        msgUserName = "";
+        msgWeekScore = "";
+        msgTotalGames = "";
+        msgRank = "";
+        msgScore = "";
+        msgKills = "";
+        msgDeaths = "";
+        msgKD = "";
+        msgKPG = "";
+        msgScorePerGame = "";
+        msgEvCoins = "";
+        msgCPWeek = "";
+        msgCPTotal = "";
+        msgBRWeek = "";
+        msgBRTotal = "";
+        msgSurviveWeek = "";
+        msgSurviveBest = "";
+        msgEarnedAsScholar = "";
+        msgEarnedFromScholar = "";
+        msgAcctCreated = "";
+        msgChanged = "";
+        skinTitle = ["","","","","",""];
+        validUser = false;
+
+        if (userNumber.value == null || userNumber.value == "") {
+            userNumber.value = 0;
+            userNumber.innerText = 0;
+        }
+
         yourUserUrl = "https://ev.io/user/" + userNumber.value + "?_format=json";
         yourScholarshipURL = "https://ev.io/scholar/" + userNumber.value;
 
         geturl(yourUserUrl);
-        getScholarshipUrl(yourScholarshipURL);
+
+        if(validUser) {
+            getScholarshipUrl(yourScholarshipURL);
+        }
     }
 
     function geturl(yourUrl){
@@ -29,14 +110,18 @@ window.onload = function() {
 
         json_obj = JSON.parse(Httpreq.responseText);
 
+        msgUserName = "";
         msgUser = "";
 
         if (Object.keys(json_obj).length > 1) {
+            validUser = true;
             changeUserData();
         } else {
+            msgUserName = "Invalid User";
             msgData = "This user does not have any data at this time.";
 
             changeUserText();
+            changeLastEquipText(skinTitle);
         }
     }
 
@@ -58,26 +143,6 @@ window.onload = function() {
     }
 
     function changeUserData() {
-        var msgUserName = "";
-        var msgWeekScore = "";
-        var msgTotalGames = "";
-        var msgRank = "";
-        var msgScore = "";
-        var msgKills = "";
-        var msgDeaths = "";
-        var msgKD = "";
-        var msgKPG = "";
-        var msgScorePerGame = "";
-        var msgEvCoins = "";
-        var msgCPWeek = "";
-        var msgCPTotal = "";
-        var msgBRWeek = "";
-        var msgBRTotal = "";
-        var msgSurviveWeek = "";
-        var msgSurviveBest = "";
-        var msgEarnedAsScholar = "";
-        var msgEarnedFromScholar = "";
-        var msgChanged = "";
         var skinNodes = [];
         var msgCharSkin = "";
         var msgSwordSkin = "";
@@ -86,94 +151,95 @@ window.onload = function() {
         msgData = "";
 
         if(json_obj.name.length > 0){
-            msgUserName = "User Name: " + json_obj.name[0].value + " (" + json_obj.uid[0].value +  ")\n";
+            msgUserName = json_obj.name[0].value + " (" + json_obj.uid[0].value +  ")";
         }
 
         if(json_obj.field_weekly_score.length > 0){
-            msgWeekScore = "Weekly Score: " + json_obj.field_weekly_score[0].value + "\n";
+            msgWeekScore = + json_obj.field_weekly_score[0].value;
         }
-        
+
         if (json_obj.field_total_games.length > 0) {
-            msgTotalGames = "Total Games: " + json_obj.field_total_games[0].value + "\n";
+            msgTotalGames = json_obj.field_total_games[0].value;
         }
 
         if (json_obj.field_rank.length > 0) {
-            msgRank = "Rank: " + json_obj.field_rank[0].value + "\n";
+            msgRank = json_obj.field_rank[0].value;
         }
 
         if (json_obj.field_score.length > 0) {
-            msgScore = "Total Score: " + json_obj.field_score[0].value + "\n";
+            msgScore = json_obj.field_score[0].value;
         }
 
         if (json_obj.field_kills.length > 0) {
-            msgKills = "Kills: " + json_obj.field_kills[0].value + "\n";
+            msgKills = json_obj.field_kills[0].value;
         }
-        
+
         if (json_obj.field_deaths.length > 0) {
-            msgDeaths = "Deaths: " + json_obj.field_deaths[0].value + "\n";    
+            msgDeaths = json_obj.field_deaths[0].value;
         }
-        
+
         if (json_obj.field_k_d.length > 0) {
-            msgKD =  "K/D: " + json_obj.field_k_d[0].value + "\n";
+            msgKD =  json_obj.field_k_d[0].value;
         }
 
         if (json_obj.field_kills && json_obj.field_total_games) {
             var KPGScore = Math.round(json_obj.field_kills[0].value/json_obj.field_total_games[0].value);
-            msgKPG = "KPG: " + KPGScore + "\n";
+            msgKPG = KPGScore;
         }
 
         if (json_obj.field_score.length > 0 && json_obj.field_total_games.length > 0) {
             var ScorePerGame = Math.round(json_obj.field_score[0].value/json_obj.field_total_games[0].value)
-            msgScorePerGame = "Score/Game: " + ScorePerGame + "\n";                       
+            msgScorePerGame = ScorePerGame;
         }
-        
+
         if (json_obj.field_ev_coins.length > 0) {
-            msgEvCoins = "ev Coins: " + json_obj.field_ev_coins[0].value + "\n";
+            msgEvCoins = json_obj.field_ev_coins[0].value;
         }
-        
+
         if (json_obj.field_cp_earned_weekly.length > 0) {
-            msgCPWeek = "CP - Weekly: " + json_obj.field_cp_earned_weekly[0].value + "\n";
+            msgCPWeek = json_obj.field_cp_earned_weekly[0].value;
         }
 
         if (json_obj. field_lifetime_cp_earned.length > 0) {
-            msgCPTotal = "CP - Total: " + json_obj.field_lifetime_cp_earned[0].value + "\n";
+            msgCPTotal = json_obj.field_lifetime_cp_earned[0].value;
         }
 
         if (json_obj.field_battle_royale_wins_weekly.length > 0) {
-            msgBRWeek = "Battle Royale - Weekly: " + json_obj.field_battle_royale_wins_weekly[0].value + "\n"; 
+            msgBRWeek = json_obj.field_battle_royale_wins_weekly[0].value; 
         }
-        
+
         if (json_obj.field_battle_royale_wins.length > 0) {
-            msgBRTotal = "Battle Royale - Total: " + json_obj.field_battle_royale_wins[0].value + "\n";
+            msgBRTotal = json_obj.field_battle_royale_wins[0].value;
         }
 
         if (json_obj.field_survival_weekly.length > 0) {
-            msgSurviveWeek = "Survival - Weekly: " + json_obj.field_survival_weekly[0].value + "\n";
+            msgSurviveWeek = json_obj.field_survival_weekly[0].value;
         }
+
         if (json_obj.field_best_survival_time.length > 0) {
-            msgSurviveBest = "Survival - Best: " + json_obj.field_best_survival_time[0].value + "\n";
+            msgSurviveBest = json_obj.field_best_survival_time[0].value;
         }
 
         if (json_obj.created.length > 0) {
             var createDate = json_obj.created[0].value;
 
             createDate = createDate.substring(0,10);
-            msgAcctCreated = "Created: " + createDate + "\n";
+            msgAcctCreated = createDate;
         }
 
         if (json_obj.changed.length > 0) {
             var changedDate = json_obj.changed[0].value;
 
             changedDate = changedDate.substring(0,10);
-            msgChanged = "Changed: " + changedDate + "\n";
+            msgChanged = changedDate;
         }
 
         if (json_obj.field_earned_as_scholar.length > 0) {
-            msgEarnedAsScholar = "Earned as Scholar: " + json_obj.field_earned_as_scholar[0].value + "\n";
+            msgEarnedAsScholar = json_obj.field_earned_as_scholar[0].value;
         }
 
         if (json_obj.field_earned_from_scholars.length > 0) {
-            msgEarnedFromScholar = "Earned from Scholar: " + json_obj.field_earned_from_scholars[0].value + "\n";
+            msgEarnedFromScholar = json_obj.field_earned_from_scholars[0].value;
         }
 
         // Get the data of last equipped skins
@@ -215,15 +281,32 @@ window.onload = function() {
 
         skinNodes.forEach(getSkinData);
 
-        msgData = msgUserName + msgAcctCreated + msgChanged + msgRank + msgScore + msgTotalGames + msgWeekScore + msgKills + msgDeaths + msgKD + msgKPG + msgScorePerGame + msgEvCoins + msgEarnedAsScholar + msgEarnedFromScholar + msgCPWeek + msgCPTotal + msgBRWeek + msgBRTotal + msgSurviveWeek + msgSurviveBest;
-
         changeUserText();
         changeLastEquipText(skinTitle);
     }
 
     function changeUserText() {
-        userNameDiv.innerText = msgUser;
-        userDataDiv.innerText = msgData;
+        userNameTxt.innerText = msgUserName;
+        createdTxt.innerText = msgAcctCreated;
+        changedTxt.innerText = msgChanged;
+        rankTxt.innerText = msgRank;
+        totalScoreTxt.innerText = msgScore;
+        totalGamesTxt.innerText = msgTotalGames;
+        weeklyScoreTxt.innerText = msgWeekScore;
+        killsTxt.innerText = msgKills;
+        deathsTxt.innerText = msgDeaths;
+        kdRatioTxt.innerText = msgKD;
+        kpgTxt.innerText =  msgKPG;
+        scorePerGameTxt.innerText = msgScorePerGame;
+        evCoinsTxt.innerText = msgEvCoins;
+        earnedAsScholarTxt.innerText = msgEarnedAsScholar;
+        earnedFromScholarTxt.innerText = msgEarnedFromScholar;
+        cpWeekTxt.innerText = msgCPWeek;
+        cpTotalTxt.innerText = msgCPTotal;
+        brWeekTxt.innerText = msgBRWeek;
+        brTotalTxt.innerText = msgBRTotal;
+        survivalWeekTxt.innerText = msgSurviveWeek;
+        survivalBestTxt.innerText = msgSurviveBest;
     }
 
     function getSkinData(value, index) {
@@ -254,24 +337,18 @@ window.onload = function() {
     }
 
     function changeLastEquipText(skinsEquipped) {
-        // Character,AR,SW,BR,HC,LR
-        var msgEquipped = "";
-
-        msgEquipped = "Equipped Skins\n" +
-        "Character: " + skinsEquipped[0] + "\n" +
-        "Auto Rifle: " + skinsEquipped[1] + "\n" +
-        "Sword: " + skinsEquipped[2] + "\n" +
-        "Burst Rifle: " + skinsEquipped[3] + "\n" +
-        "Hand Cannon: " + skinsEquipped[4] + "\n" +
-        "Laser Rifle: " + skinsEquipped[5] + "\n";
-
-        userEquipDiv.innerText = msgEquipped;
+        characterSkinTxt.innerText = skinsEquipped[0];
+        autoRifleSkinTxt.innerText =  skinsEquipped[1];
+        swordSkinTxt.innerText =  skinsEquipped[2];
+        burstRifleSkinTxt.innerText =  skinsEquipped[3];
+        handCannonSkinTxt.innerText =  skinsEquipped[4];
+        laserRifleSkinTxt.innerText =  skinsEquipped[5];
     }
-    
+
     document.getElementById('getUrlInfo').addEventListener('click', geturlInfo);
     document.getElementById('userIdNumber').addEventListener('keypress', function(e) {
         if (e.key === "Enter") {
-            geturlInfo();
+        geturlInfo();
         }
     });
 }
