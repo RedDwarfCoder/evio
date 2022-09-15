@@ -80,7 +80,7 @@ window.onload = function() {
 
         userNFTJsonObj = JSON.parse(Httpreq.responseText);
 
-        if (userNFTJsonObj.length > 1) {
+        if (userNFTJsonObj.length > 0) {
             userNFTJsonObj.forEach(element => {
                 if (element.field_flag_nft_address !== false) {
                     totalNFTs = totalNFTs + 1;
