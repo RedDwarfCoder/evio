@@ -83,8 +83,33 @@ window.onload = function() {
         if (userNFTJsonObj.length > 0) {
             userNFTJsonObj.forEach(element => {
                 if (element.field_flag_nft_address !== false) {
+                    var tierValue = "";
+                    var tierRank = "";
+                    var dataToPush = [];
+
                     totalNFTs = totalNFTs + 1;
-                    nftsOwned.push(element.field_skin);
+                    tierValue =  getTierValue(element.field_meta[0]);
+
+                    switch(tierValue) {
+                        case "Legendary":
+                            tierRank = 1;
+                            break;
+                        case "Epic":
+                            tierRank = 2;
+                            break;
+                        case "Rare":
+                            tierRank = 3;
+                            break;
+                        case "Common":
+                            tierRank = 4;
+                            break;
+                    }
+
+                    dataToPush[0] = element.field_skin;
+                    dataToPush[1] = tierValue;
+                    dataToPush[2] = tierRank;
+
+                    nftsOwned.push(dataToPush);
                 }
             });
         } else {
@@ -95,13 +120,40 @@ window.onload = function() {
         userNFTTotalTxt.innerText = "They own " + totalNFTs + " NFTs";
 
         if(nftsOwned.length > 0) {
+            // Sort array if more than 1
+            if(nftsOwned.length > 1) {
+                // first by name
+                nftsOwned = nftsOwned.sort(function(a,b) {
+                    return a[0].charCodeAt(0) - b[0].charCodeAt(0);
+                });
+                // then by tier Rank
+                nftsOwned = nftsOwned.sort(function(a,b) {
+                    return a[2] - b[2];
+                });
+            }
+
             nftsOwned.forEach(element => {
-                msgNFTsOwned = msgNFTsOwned + element + ", ";
+                msgNFTsOwned = msgNFTsOwned + "<div class='row'><span>" + element[0] + "</span><span>(" + element[1] + ")</span></div>";
             });
         }
 
-        userNFTsOwnedTxt.innerText = msgNFTsOwned;
+        userNFTsOwnedTxt.innerHTML = msgNFTsOwned;
 
+    }
+
+    function getTierValue(nftData) {
+
+        nftData = nftData.replace(/['"\]\[\{]+/g, '');
+
+        nftData = nftData.split('}, ');
+
+        nftData = nftData[1];
+
+        nftData = nftData.split(",");
+
+        nftData = nftData[0].replace('value: ','');
+
+        return nftData;
     }
 
     document.getElementById('getUrlInfo').addEventListener('click', geturlInfo);
