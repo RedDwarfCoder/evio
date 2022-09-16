@@ -155,61 +155,62 @@ window.onload = function() {
         }
 
         if(json_obj.field_weekly_score.length > 0){
-            msgWeekScore = + json_obj.field_weekly_score[0].value;
+            // msgWeekScore = json_obj.field_weekly_score[0].value;
+            msgWeekScore = (json_obj.field_weekly_score[0].value).toLocaleString();
         }
 
         if (json_obj.field_total_games.length > 0) {
-            msgTotalGames = json_obj.field_total_games[0].value;
+            msgTotalGames = (json_obj.field_total_games[0].value).toLocaleString();
         }
 
         if (json_obj.field_rank.length > 0) {
-            msgRank = json_obj.field_rank[0].value;
+            msgRank = (json_obj.field_rank[0].value).toLocaleString();
         }
 
         if (json_obj.field_score.length > 0) {
-            msgScore = json_obj.field_score[0].value;
+            msgScore = (json_obj.field_score[0].value).toLocaleString();
         }
 
         if (json_obj.field_kills.length > 0) {
-            msgKills = json_obj.field_kills[0].value;
+            msgKills = (json_obj.field_kills[0].value).toLocaleString();
         }
 
         if (json_obj.field_deaths.length > 0) {
-            msgDeaths = json_obj.field_deaths[0].value;
+            msgDeaths = (json_obj.field_deaths[0].value).toLocaleString();
         }
 
         if (json_obj.field_k_d.length > 0) {
-            msgKD =  json_obj.field_k_d[0].value;
+            msgKD = (json_obj.field_k_d[0].value).toLocaleString();
         }
 
         if (json_obj.field_kills && json_obj.field_total_games) {
             var KPGScore = Math.round(json_obj.field_kills[0].value/json_obj.field_total_games[0].value);
-            msgKPG = KPGScore;
+            msgKPG = KPGScore.toLocaleString();
         }
 
         if (json_obj.field_score.length > 0 && json_obj.field_total_games.length > 0) {
             var ScorePerGame = Math.round(json_obj.field_score[0].value/json_obj.field_total_games[0].value)
-            msgScorePerGame = ScorePerGame;
+            msgScorePerGame = ScorePerGame.toLocaleString();
         }
 
         if (json_obj.field_ev_coins.length > 0) {
-            msgEvCoins = json_obj.field_ev_coins[0].value;
+            msgEvCoins = (json_obj.field_ev_coins[0].value).toLocaleString();
         }
 
         if (json_obj.field_cp_earned_weekly.length > 0) {
-            msgCPWeek = json_obj.field_cp_earned_weekly[0].value;
+            msgCPWeek = (json_obj.field_cp_earned_weekly[0].value).toLocaleString();
         }
 
         if (json_obj. field_lifetime_cp_earned.length > 0) {
-            msgCPTotal = json_obj.field_lifetime_cp_earned[0].value;
+            msgCPTotal = (json_obj.field_lifetime_cp_earned[0].value).toLocaleString();
         }
 
         if (json_obj.field_battle_royale_wins_weekly.length > 0) {
-            msgBRWeek = json_obj.field_battle_royale_wins_weekly[0].value; 
+            msgBRWeek = (json_obj.field_battle_royale_wins_weekly[0].value).toLocaleString();
         }
 
         if (json_obj.field_battle_royale_wins.length > 0) {
-            msgBRTotal = json_obj.field_battle_royale_wins[0].value;
+            msgBRTotal = (json_obj.field_battle_royale_wins[0].value).toLocaleString();
         }
 
         if (json_obj.field_survival_weekly.length > 0) {
@@ -235,11 +236,11 @@ window.onload = function() {
         }
 
         if (json_obj.field_earned_as_scholar.length > 0) {
-            msgEarnedAsScholar = json_obj.field_earned_as_scholar[0].value;
+            msgEarnedAsScholar = (json_obj.field_earned_as_scholar[0].value).toLocaleString();
         }
 
         if (json_obj.field_earned_from_scholars.length > 0) {
-            msgEarnedFromScholar = json_obj.field_earned_from_scholars[0].value;
+            msgEarnedFromScholar = (json_obj.field_earned_from_scholars[0].value).toLocaleString();
         }
 
         // Get the data of last equipped skins
