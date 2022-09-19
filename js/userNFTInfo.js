@@ -50,6 +50,7 @@ window.onload = function() {
         } else {
             msgUserName = "Invalid User";
             totalNFTs = 0;
+            totalNFTsRented = 0;
             msgNFTsOwned = "";
             userNameTxt.innerText = msgUserName;
 
@@ -69,6 +70,7 @@ window.onload = function() {
     function getNFTInfo() {
         var NFTUrl = "https://ev.io/flags/" + userNumber.value;
         var totalNFTs = 0;
+        var totalNFTsRented = 0;
         var msgNFTsOwned = "";
 
         userNFTTotalTxt.innerText = "";
@@ -86,6 +88,8 @@ window.onload = function() {
                     var tierValue = "";
                     var tierRank = "";
                     var dataToPush = [];
+                    var scholar = "";
+                    var scholarEarn = "";
 
                     totalNFTs = totalNFTs + 1;
                     tierValue =  getTierValue(element.field_meta[0]);
@@ -105,9 +109,17 @@ window.onload = function() {
                             break;
                     }
 
+                    if (element.field_scholar !== "") {
+                        totalNFTsRented = totalNFTsRented + 1;
+                        scholar = element.field_scholar;
+                        scholarEarn = element.field_scholar_earn_percentage;
+                    }
+
                     dataToPush[0] = element.field_skin;
                     dataToPush[1] = tierValue;
                     dataToPush[2] = tierRank;
+                    dataToPush[3] = scholar;
+                    dataToPush[4] = scholarEarn;
 
                     nftsOwned.push(dataToPush);
                 }
@@ -117,7 +129,7 @@ window.onload = function() {
             userNFTsOwnedTxt.innerText = msgNFTsOwned;
         }
 
-        userNFTTotalTxt.innerText = "They own " + totalNFTs + " NFTs";
+        userNFTTotalTxt.innerText = "They own " + totalNFTs + " NFTs (" + totalNFTsRented + " rented).";
 
         if(nftsOwned.length > 0) {
             // Sort array if more than 1
@@ -133,7 +145,11 @@ window.onload = function() {
             }
 
             nftsOwned.forEach(element => {
-                msgNFTsOwned = msgNFTsOwned + "<div class='row'><span>" + element[0] + "</span><span>(" + element[1] + ")</span></div>";
+                if(element[3] === ""){
+                    msgNFTsOwned = msgNFTsOwned + "<div class='row'><span>" + element[0] + "</span><span>(" + element[1] + ")</span></div>";
+                } else {
+                    msgNFTsOwned = msgNFTsOwned + "<div class='row rented' title ='" + element[3] + " | " + element[4] +"'><span>" + element[0] + "</span><span>(" + element[1] + ")</span></div>";
+                }
             });
         }
 
