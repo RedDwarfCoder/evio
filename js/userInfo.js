@@ -58,6 +58,8 @@ window.onload = function() {
     var msgRenting = "";
     var skinTitle = [];
     var validUser = false;
+    var scholarData = [];
+    var rentalData = [];
 
     geturlInfo();
 
@@ -114,6 +116,17 @@ window.onload = function() {
         msgUser = "";
 
         if (Object.keys(json_obj).length > 1) {
+            for (const key in json_obj) {
+                if (json_obj[key].length > 0) {
+                    var dataValue = json_obj[key][0].value;
+
+                    scholarData.push( {
+                        key,
+                        dataValue
+                    })
+                }
+            }
+
             validUser = true;
             changeUserData();
         } else {
@@ -133,6 +146,7 @@ window.onload = function() {
         json_obj = JSON.parse(Httpreq.responseText);
 
         if (json_obj.length > 0) {
+            rentalData = json_obj;
             changeScholarData();
         } else {
             msgUser = "";
@@ -144,9 +158,9 @@ window.onload = function() {
 
     function changeUserData() {
         var skinNodes = [];
-        var msgCharSkin = "";
-        var msgSwordSkin = "";
-        var msgARSkin = "";
+        // var msgCharSkin = "";
+        // var msgSwordSkin = "";
+        // var msgARSkin = "";
 
         msgData = "";
 
