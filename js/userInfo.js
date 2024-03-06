@@ -1,4 +1,8 @@
 window.onload = function() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const queryUser = urlParams.get("userIdName");
+    // var userNumber = 1;
     var userNumber = document.getElementById('userIdNumber');
     var yourUserUrl = "";
     var yourScholarshipURL = "";
@@ -89,6 +93,10 @@ window.onload = function() {
         msgChanged = "";
         skinTitle = ["","","","","",""];
         validUser = false;
+
+        if (queryUser != null && (userNumber.value == null || userNumber.value == "")) {
+            userNumber.value = queryUser;
+        }
 
         if (userNumber.value == null || userNumber.value == "") {
             userNumber.value = 0;
