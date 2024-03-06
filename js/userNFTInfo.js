@@ -1,4 +1,7 @@
 window.onload = function() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const queryUser = urlParams.get("userIdName");
     var userNumber = document.getElementById('userIdNumber');
     var userNameTxt = document.getElementById('userName');
     var userNFTTotalTxt = document.getElementById('nfts');
@@ -20,6 +23,10 @@ window.onload = function() {
 
         userNameTxt.innerText = "";
         validUser = false;
+
+        if (queryUser != null && (userNumber.value == null || userNumber.value == "")) {
+            userNumber.value = queryUser;
+        }
 
         if (userNumber.value == null || userNumber.value == "") {
             userNumber.value = 0;
